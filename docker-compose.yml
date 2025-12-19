@@ -1,0 +1,37 @@
+# SecOpsMonitor - Simple Docker Setup (SQLite, no external dependencies)
+# Usage: docker compose up --build
+# UI: http://localhost:3000  |  API: http://localhost:8000/docs
+
+services:
+  monitor-api:
+    build:
+      context: ./monitor-api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      SECOPS_DATABASE_URL: "sqlite+aiosqlite:///./data/secopsmonitor.db"
+      SECOPS_SECRET_KEY: "secopsmonitor-local-dev-key"
+      SECOPS_CORS_ORIGINS: '["http://localhost:3000","http://localhost:5173","http://localhost:5174"]'
+      SECOPS_DEBUG: "true"
+    volumes:
+      - secopsmonitor_data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/docs')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  ui-monitor:
+    build:
+      context: ./ui-monitor
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      monitor-api:
+        condition: service_healthy
+
+volumes:
+  secopsmonitor_data:
