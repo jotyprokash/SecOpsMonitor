@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+/* SecOpsMonitor Design System — Logo-matched Theme */
+
+:root {
+  --bg-primary: #0a0a0c;
+  --bg-secondary: #121216;
+  --bg-tertiary: #1a1a20;
+  --bg-elevated: #24242c;
+
+  --surface-card: #121216;
+  --surface-hover: #1a1a20;
+  --surface-active: #24242c;
+
+  --border: #2a2a35;
+  --border-hover: #3f3f4e;
+  --border-active: #0d9488;
+
+  --accent: #0d9488;
+  --accent-hover: #0f766e;
+  --accent-muted: #115e59;
+
+  --accent-cyan: #06b6d4;
+  --accent-magenta: #10b981;
+  --accent-blue: #3b82f6;
+
+  --content-primary: #f0f0ff;
+  --content-secondary: #9ca3c7;
+  --content-tertiary: #6b72a0;
+  --content-muted: #4a5080;
+
+  --severity-critical: #ef4444;
+  --severity-high: #f97316;
+  --severity-medium: #eab308;
+  --severity-low: #3b82f6;
+  --severity-info: #6b7280;
+
+  --type-host: #3b82f6;
+  --type-vulnerability: #ef4444;
+  --type-network-flow: #8b5cf6;
+  --type-protocol: #22d3ee;
+  --type-product: #10b981;
+  --type-scanner: #f59e0b;
+  --type-attack-path: #ef4444;
+  --type-compliance: #6366f1;
+  --type-component: #14b8a6;
+  --type-user: #d946ef;
+
+  --status-active: #ef4444;
+  --status-resolved: #10b981;
+  --status-mitigated: #3b82f6;
+  --status-false-positive: #6b7280;
+  --status-risk-accepted: #d97706;
+
+  --gradient-primary: linear-gradient(135deg, #10b981, #0d9488, #0ea5e9);
+  --gradient-secondary: linear-gradient(135deg, #06b6d4, #0ea5e9, #0d9488);
+  --gradient-accent: linear-gradient(135deg, #10b981, #06b6d4);
+
+  color-scheme: dark;
+}
+
+.light {
+  --bg-primary: #f5f5ff;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #ededff;
+  --bg-elevated: #ddddf5;
+
+  --surface-card: #ffffff;
+  --surface-hover: #f0f0ff;
+  --surface-active: #e0e0f5;
+
+  --border: #ddddf5;
+  --border-hover: #c5c5e0;
+  --border-active: #7c3aed;
+
+  --content-primary: #0d1029;
+  --content-secondary: #4a5080;
+  --content-tertiary: #6b72a0;
+  --content-muted: #9ca3c7;
+
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-primary);
+  color: var(--content-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--content-muted);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--content-tertiary);
+}
+
+/* Gradient text utility */
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effects */
+.glow-purple {
+  box-shadow: 0 0 20px rgba(13, 148, 136, 0.3), 0 0 60px rgba(13, 148, 136, 0.1);
+}
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), 0 0 60px rgba(6, 182, 212, 0.1);
+}
+.glow-magenta {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3), 0 0 60px rgba(16, 185, 129, 0.1);
+}
+
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface-card: var(--surface-card);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-active: var(--surface-active);
+  --color-border-default: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-border-active: var(--border-active);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-muted: var(--accent-muted);
+  --color-content-primary: var(--content-primary);
+  --color-content-secondary: var(--content-secondary);
+  --color-content-tertiary: var(--content-tertiary);
+  --color-content-muted: var(--content-muted);
+  --color-severity-critical: var(--severity-critical);
+  --color-severity-high: var(--severity-high);
+  --color-severity-medium: var(--severity-medium);
+  --color-severity-low: var(--severity-low);
+  --color-severity-info: var(--severity-info);
+}
