@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicerdicer/tauri/dev/crates/tauri-cli/config.schema.json",
+  "productName": "SecOpsMonitor",
+  "identifier": "com.secopsmonitor.app",
+  "version": "0.1.0",
+  "build": {
+    "ui-monitorDist": "../ui-monitor/dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "cd ../ui-monitor && npm run dev",
+    "beforeBuildCommand": "cd ../ui-monitor && npm run build"
+  },
+  "app": {
+    "title": "SecOpsMonitor",
+    "windows": [
+      {
+        "title": "SecOpsMonitor - Security Operations Platform",
+        "width": 1400,
+        "height": 900,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:8000 ws://localhost:8000"
+    }
+  }
+}
