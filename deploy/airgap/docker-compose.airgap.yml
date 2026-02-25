@@ -1,0 +1,205 @@
+# =============================================================================
+# SecOpsMonitor Air-Gap Docker Compose
+# =============================================================================
+# This compose file is designed for fully air-gapped OT/ICS environments.
+# - All images are loaded locally (no registry pulls)
+# - Networks are internal-only (no external gateway)
+# - Ports bind to localhost by default
+# - Resource limits are set for industrial PC hardware
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL Database
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: secopsmonitor-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - secopsmonitor-internal
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+        reservations:
+          memory: 256M
+    security_opt:
+      - no-new-privileges:true
+
+  # ---------------------------------------------------------------------------
+  # Redis Cache and Message Broker
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: secopsmonitor-redis
+    restart: unless-stopped
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru --save 60 1000
+    volumes:
+      - redis_data:/data
+    networks:
+      - secopsmonitor-internal
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          memory: 64M
+    security_opt:
+      - no-new-privileges:true
+
+  # ---------------------------------------------------------------------------
+  # Backend API Server
+  # ---------------------------------------------------------------------------
+  monitor-api:
+    image: secopsmonitor-monitor-api:latest
+    container_name: secopsmonitor-monitor-api
+    restart: unless-stopped
+    environment:
+      SECOPS_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      SECOPS_REDIS_URL: redis://redis:6379/0
+      SECOPS_SECRET_KEY: ${SECOPS_SECRET_KEY}
+      SECOPS_CORS_ORIGINS: ${SECOPS_CORS_ORIGINS}
+      SECOPS_LOG_LEVEL: ${SECOPS_LOG_LEVEL:-INFO}
+      SECOPS_LOG_FORMAT: ${SECOPS_LOG_FORMAT:-json}
+      SECOPS_SCAN_STORAGE_PATH: ${SECOPS_SCAN_STORAGE_PATH:-/app/data/scans}
+      SECOPS_JWT_EXPIRY_MINUTES: ${SECOPS_JWT_EXPIRY_MINUTES:-480}
+    volumes:
+      - scan_data:${SECOPS_SCAN_STORAGE_PATH:-/app/data/scans}
+    networks:
+      - secopsmonitor-internal
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://localhost:8000/health\")'"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+        reservations:
+          memory: 256M
+    security_opt:
+      - no-new-privileges:true
+
+  # ---------------------------------------------------------------------------
+  # Frontend (Nginx + React)
+  # ---------------------------------------------------------------------------
+  ui-monitor:
+    image: secopsmonitor-ui-monitor:latest
+    container_name: secopsmonitor-ui-monitor
+    restart: unless-stopped
+    networks:
+      - secopsmonitor-internal
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${FRONTEND_PORT:-3000}:80"
+    depends_on:
+      monitor-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:80/ > /dev/null 2>&1 || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+        reservations:
+          memory: 64M
+    security_opt:
+      - no-new-privileges:true
+
+  # ---------------------------------------------------------------------------
+  # Celery Worker (Background Scan Processing)
+  # ---------------------------------------------------------------------------
+  celery-worker:
+    image: secopsmonitor-monitor-api:latest
+    container_name: secopsmonitor-celery-worker
+    restart: unless-stopped
+    command: celery -A app.celery_app worker --loglevel=${SECOPS_LOG_LEVEL:-info} --concurrency=${CELERY_WORKER_CONCURRENCY:-2}
+    environment:
+      SECOPS_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      SECOPS_REDIS_URL: redis://redis:6379/0
+      SECOPS_SECRET_KEY: ${SECOPS_SECRET_KEY}
+      SECOPS_LOG_LEVEL: ${SECOPS_LOG_LEVEL:-INFO}
+      SECOPS_SCAN_STORAGE_PATH: ${SECOPS_SCAN_STORAGE_PATH:-/app/data/scans}
+      CELERY_TASK_TIME_LIMIT: ${CELERY_TASK_TIME_LIMIT:-3600}
+    volumes:
+      - scan_data:${SECOPS_SCAN_STORAGE_PATH:-/app/data/scans}
+    networks:
+      - secopsmonitor-internal
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.celery_app inspect ping --timeout 10 2>/dev/null | grep -q 'ok' || exit 1"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+        reservations:
+          memory: 256M
+    security_opt:
+      - no-new-privileges:true
+
+# =============================================================================
+# Volumes — Persistent data survives container restarts and upgrades
+# =============================================================================
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  scan_data:
+    driver: local
+
+# =============================================================================
+# Networks — Internal only, no external gateway
+# =============================================================================
+networks:
+  secopsmonitor-internal:
+    driver: bridge
+    internal: true
