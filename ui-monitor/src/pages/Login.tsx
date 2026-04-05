@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { LogIn, Zap } from 'lucide-react';
-import SecOpsMonitorLogo from '@/components/shared/SecOpsMonitorLogo';
+import BrandIdentity from '@/components/shared/BrandIdentity';
 import { useAuthStore } from '@/stores/authStore';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';

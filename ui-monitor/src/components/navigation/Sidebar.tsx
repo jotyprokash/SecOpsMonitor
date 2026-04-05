@@ -38,7 +38,7 @@ import {
 import type { LucideIcon } from 'lucide-react';
 import { NAV_GROUPS } from '@/lib/constants';
 import { cn } from '@/lib/cn';
-import SecOpsMonitorLogo from '@/components/shared/SecOpsMonitorLogo';
+import BrandIdentity from '@/components/shared/BrandIdentity';
 
 const COLLAPSED_KEY = 'secopsmonitor_sidebar_collapsed';
 
@@ -116,7 +116,7 @@ export default function Sidebar({ onWidthChange }: SidebarProps) {
       {/* Branding */}
       <div className="flex h-14 items-center gap-3 border-b border-border-default px-4">
         <div className="shrink-0">
-          <SecOpsMonitorLogo size={collapsed ? 28 : 32} />
+          <BrandIdentity size={collapsed ? 28 : 32} />
         </div>
         {!collapsed && (
           <span className="text-sm font-bold tracking-[0.2em] text-gradient">

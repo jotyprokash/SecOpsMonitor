@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import SecOpsMonitorLogo from '@/components/shared/SecOpsMonitorLogo';
+import BrandIdentity from '@/components/shared/BrandIdentity';
 
 export function AuthLayout() {
   return (
@@ -13,7 +13,7 @@ export function AuthLayout() {
       <div className="relative w-full max-w-md space-y-8 rounded-2xl border border-border-default bg-bg-secondary p-8 shadow-2xl">
         {/* Branding */}
         <div className="flex flex-col items-center gap-3">
-          <SecOpsMonitorLogo size={56} />
+          <BrandIdentity size={56} />
           <h1 className="text-2xl font-bold tracking-wider text-gradient">
             SECOPS
           </h1>
