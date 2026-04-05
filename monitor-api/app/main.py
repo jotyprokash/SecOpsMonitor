@@ -56,7 +56,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
 app = FastAPI(
     title=settings.APP_NAME,
-    version="0.1.0",
+    version="1.0.0-beta",
     description="SecOpsMonitor - Security Operations Platform API",
     default_response_class=ORJSONResponse,
     lifespan=lifespan,
