@@ -6,10 +6,10 @@
 
 <p align="center">
   <strong>Passive ICS/SCADA Network Discovery & Security Assessment Platform</strong><br/>
-  🟢 v1.0.0-beta &nbsp;|&nbsp; 🐳 Dockerized &nbsp;|&nbsp; 🛡️ MITRE ICS &nbsp;|&nbsp; 🏗️ 6 Protocol Parsers
+  🐳 Dockerized &nbsp;|&nbsp; 🛡️ MITRE ICS &nbsp;|&nbsp; 🏗️ 6 Protocol Parsers
 </p>
 
----
+
 
 ## Technical Overview
 
@@ -17,9 +17,9 @@
 
 Unlike prototypical dashboards, SecOpsMonitor includes a high-performance backend (FastAPI/Scapy) that processes real-world PCAP captures through a multi-stage ingestion pipeline.
 
----
 
-## 🚀 Quick Start
+
+## Quick Start
 
 The fastest way to deploy the stack is via Docker. Ensure `docker-compose` is installed.
 
@@ -33,9 +33,9 @@ docker compose up --build
 - **API Documentation**: [http://localhost:8000/docs](http://localhost:8000/docs)
 - **Demo Access**: Use the "Demo Login" button on the login screen.
 
----
 
-## 🧩 Core Capabilities
+
+## Core Capabilities
 
 - **Passive Asset Inventory**: Automated discovery of PLC, HMI, and Historians using 38+ OUI vendor prefixes.
 - **DPI Protocol Analysis**: Native support for **Modbus TCP, S7comm, EtherNet/IP, DNP3, BACnet, and IEC 104**.
@@ -43,38 +43,18 @@ docker compose up --build
 - **Security Assessment**: MITRE ATT&CK for ICS mapping, Purdue zone violation detection, and C2/Beaconing identification.
 - **Reporting Engine**: Professional PDF assessment reports covering executive summaries and technical logic.
 
----
 
-## 🏗 Architecture
 
-```text
-┌──────────────────────────────┐     ┌───────────────────────────────────┐
-│     Discovery Dashboard      │ ─── │        React 19 SPA (Vite)        │
-└──────────────────────────────┘     └───────────────────────────────────┘
-               │                                      │
-               ▼                                      ▼
-┌──────────────────────────────┐     ┌───────────────────────────────────┐
-│       Monitor API v1         │ ─── │      FastAPI (Async Pipeline)     │
-└──────────────────────────────┘     └───────────────────────────────────┘
-               │                                      │ (DPI / PCAP)
-               ▼                                      ▼
-┌──────────────────────────────┐     ┌───────────────────────────────────┐
-│      Processing Engine       │ ─── │      Scapy + SQLAlchemy (17t)     │
-└──────────────────────────────┘     └───────────────────────────────────┘
-```
-
----
-
-## 🛠 Technology Stack
+##  Technology Stack
 
 - **Backend**: Python 3.12, FastAPI, Scapy, SQLAlchemy, Pydantic v2.
 - **Frontend**: React 19, TypeScript, Vite, Zustand, Tailwind CSS 4.
 - **Database**: SQLite (Async) / PostgreSQL support for production.
 - **Deployment**: Docker, Docker Compose, Nginx.
 
----
 
-## 📄 Documentation
+
+##  Documentation
 
 Detailed guides and reference material can be found in the [reference/](reference/) directory:
 
@@ -82,7 +62,3 @@ Detailed guides and reference material can be found in the [reference/](referenc
 - [Deployment Guide](reference/INSTALLATION.md)
 - [Usage Quickstart](reference/QUICKSTART.md)
 
----
-
-## License
-MIT License. Built for the OT security community.
