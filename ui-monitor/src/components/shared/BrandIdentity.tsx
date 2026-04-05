@@ -12,6 +12,8 @@ export default function BrandIdentity({ size = 32, className = '' }: LogoProps) 
       height={size}
       className={className}
       style={{ objectFit: 'contain' }}
+      loading="lazy"
+      aria-label="SecOpsMonitor Home"
     />
   );
 }
