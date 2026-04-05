@@ -62,7 +62,7 @@
     .content { position: relative; z-index: 1; }
 
     /* ─── Container ─── */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
 
     /* ─── Navbar ─── */
     nav {
@@ -79,7 +79,9 @@
     .nav-brand span {
       font-weight: 800; font-size: 18px; letter-spacing: 0.15em;
       background: linear-gradient(135deg, var(--magenta), var(--purple), var(--blue));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .nav-links { display: flex; align-items: center; gap: 32px; }
     .nav-links a {
@@ -125,7 +127,9 @@
     }
     .hero h1 .gradient {
       background: linear-gradient(135deg, var(--teal), var(--emerald));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .hero p {
       font-size: 18px; color: var(--text-secondary); max-width: 640px;
@@ -165,7 +169,9 @@
     .stat-value {
       font-size: 40px; font-weight: 800;
       background: linear-gradient(135deg, var(--cyan), var(--blue));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 
@@ -517,7 +523,7 @@
         <p style="margin-bottom: 8px;">
           <a href="#" class="nav-brand" style="display: inline-flex; gap: 8px; text-decoration: none; font-size: 14px;">
             <img src="logo.png" alt="SecOpsMonitor" width="24" height="24" style="object-fit: contain;" />
-            <span style="background: linear-gradient(135deg, #d946ef, #7c3aed, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">SECOPS</span>
+            <span style="background: linear-gradient(135deg, #2dd4bf, #10b981, #3b82f6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">SECOPS</span>
           </a>
         </p>
         <p>&copy; 2024 SecOpsMonitor Project. <a href="https://github.com/your-org/SecOpsMonitor">Open Source</a> under MIT License.</p>
