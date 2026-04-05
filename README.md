@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <a href="https://valinorintelligence.github.io/SecOpsMonitor/"><strong>🔴 Live Demo</strong></a> &middot;
+  <a href="https://your-org.github.io/SecOpsMonitor/"><strong>🔴 Live Demo</strong></a> &middot;
   <a href="https://secopsmonitor.net">Website</a> &middot;
   <a href="#screenshots">Screenshots</a> &middot;
   <a href="#installation">Installation</a> &middot;
@@ -234,7 +234,7 @@ The fastest way to get SecOpsMonitor running. No Python or Node.js installation 
 
 ```bash
 # Clone and start
-git clone https://github.com/valinorintelligence/SecOpsMonitor.git
+git clone https://github.com/your-org/SecOpsMonitor.git
 cd SecOpsMonitor
 docker compose up --build
 
@@ -261,10 +261,10 @@ Single command that auto-detects Docker or falls back to native install:
 
 ```bash
 # Run directly from GitHub
-curl -fsSL https://raw.githubusercontent.com/valinorintelligence/SecOpsMonitor/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/your-org/SecOpsMonitor/main/scripts/install.sh | bash
 
 # Or clone first, then run
-git clone https://github.com/valinorintelligence/SecOpsMonitor.git
+git clone https://github.com/your-org/SecOpsMonitor.git
 cd SecOpsMonitor
 bash scripts/install.sh
 ```
@@ -279,7 +279,7 @@ The installer will:
 
 ```powershell
 # PowerShell one-liner
-git clone https://github.com/valinorintelligence/SecOpsMonitor.git
+git clone https://github.com/your-org/SecOpsMonitor.git
 cd SecOpsMonitor
 
 # Option A: Double-click secopsmonitor.bat in File Explorer
@@ -298,7 +298,7 @@ cd SecOpsMonitor
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/valinorintelligence/SecOpsMonitor.git
+git clone https://github.com/your-org/SecOpsMonitor.git
 cd SecOpsMonitor
 
 # 2. Start the Backend
@@ -445,6 +445,7 @@ curl -X POST http://localhost:8000/api/v1/ics/findings/reports/generate \
 ```
 SecOpsMonitor/
 ├── ui-monitor/                          # React SPA
+│   ├── Dockerfile
 │   ├── src/
 │   │   ├── pages/                     # 30+ page components
 │   │   ├── components/                # Reusable UI components
@@ -453,40 +454,23 @@ SecOpsMonitor/
 │   │   ├── lib/                       # Constants, utilities
 │   │   └── stores/                    # Zustand state management
 │   └── vite.config.ts
-├── monitor-api/                           # FastAPI monitor-api
+├── monitor-api/                           # FastAPI backend
+│   ├── Dockerfile
 │   └── app/
 │       ├── core/                      # Config, database, JWT security
 │       ├── models/                    # SQLAlchemy models (17 tables)
-│       │   ├── user.py                # User authentication model
-│       │   ├── ontology.py            # Object types, links, actions, audit logs
-│       │   └── ics.py                 # Sessions, devices, connections, findings, reports
 │       ├── engine/                    # Processing engines
-│       │   ├── pcap_processor.py      # Scapy PCAP ingestion pipeline
-│       │   ├── protocol_parsers.py    # 6 ICS protocol deep parsers
-│       │   ├── c2_detector.py         # C2 beacon/exfiltration detection
-│       │   ├── cve_lookup.py          # NVD API + offline CVE database
-│       │   ├── vuln_feed.py           # ICS advisory feed engine (7 sources)
-│       │   └── report_generator.py    # PDF/HTML report generation
 │       ├── schemas/                   # Pydantic v2 validation
 │       ├── services/                  # Business logic
 │       └── api/v1/                    # REST API routers
-│           ├── auth.py                # Authentication endpoints
-│           ├── ics/                   # ICS-specific endpoints
-│           │   ├── pcap.py            # PCAP upload & processing
-│           │   ├── devices.py         # Device inventory & topology
-│           │   ├── sessions.py        # Session & project management
-│           │   ├── findings.py        # Findings, CVE, reports
-│           │   └── vuln_feed.py       # Vulnerability advisory feed (10 endpoints)
-│           ├── ontology.py            # Object type management
-│           ├── objects.py             # Object CRUD
-│           ├── dashboard.py           # Dashboard stats
-│           └── scanners.py            # External tool import
-├── public-site/                           # Static public-site page (secopsmonitor.net)
-│   └── index.html                     # Waitlist + feature showcase
-├── docs/
-│   └── screenshots/                   # 29 application screenshots
-└── scripts/
-    └── take-screenshots.mjs           # Puppeteer screenshot utility
+├── reference/                             # Platform documentation
+│   ├── FEATURES.md                    # Complete feature guide
+│   ├── QUICKSTART.md                  # 5-minute setup guide
+│   └── INSTALLATION.md               # Detailed installation steps
+├── public-site/                           # Static landing page
+├── scripts/                               # Automation utilities
+├── docker-compose.yml                     # Development stack
+└── docker-compose.prod.yml                # Production stack (PostgreSQL + Redis)
 ```
 
 ---
@@ -537,10 +521,10 @@ SecOpsMonitor is open source and welcomes contributions. Areas of interest:
 
 ## License
 
-MIT License - Valinorin Intelligence
+MIT License
 
 ---
 
 <p align="center">
-  Built for the OT security community by <a href="https://github.com/valinorintelligence">Valinorin Intelligence</a>
+  Built for the OT security community
 </p>

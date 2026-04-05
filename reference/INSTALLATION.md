@@ -108,7 +108,7 @@ Download from [docker.com](https://www.docker.com/products/docker-desktop)
 
 ```bash
 # Clone SecOpsMonitor repository
-git clone https://github.com/valinorintelligence/SecOpsMonitor.git
+git clone https://github.com/your-org/SecOpsMonitor.git
 cd SecOpsMonitor
 ```
 
@@ -223,14 +223,14 @@ docker-compose up -d
 
 ```bash
 # Pull pre-built image
-docker pull valinorintelligence/secopsmonitor:latest
+docker pull your-org/secopsmonitor:latest
 
 # Run in background
 docker run -d \
   --name secopsmonitor \
   -p 5174:5174 \
   -e VITE_DEMO_MODE=true \
-  valinorintelligence/secopsmonitor:latest
+  your-org/secopsmonitor:latest
 ```
 
 ### Docker Compose (Multi-container)
@@ -241,7 +241,7 @@ Create `docker-compose.yml`:
 version: '3.8'
 services:
   secopsmonitor:
-    image: valinorintelligence/secopsmonitor:latest
+    image: your-org/secopsmonitor:latest
     ports:
       - "5174:5174"
     environment:
@@ -449,9 +449,9 @@ kubectl port-forward svc/secopsmonitor 5174:5174
 
 ## Support
 
-- **Documentation**: [SecOpsMonitor Wiki](https://github.com/valinorintelligence/SecOpsMonitor/wiki)
-- **Issues**: [GitHub Issues](https://github.com/valinorintelligence/SecOpsMonitor/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/valinorintelligence/SecOpsMonitor/discussions)
+- **Documentation**: [SecOpsMonitor Wiki](https://github.com/your-org/SecOpsMonitor/wiki)
+- **Issues**: [GitHub Issues](https://github.com/your-org/SecOpsMonitor/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/your-org/SecOpsMonitor/discussions)
 
 ---
 

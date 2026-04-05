@@ -3,9 +3,9 @@
 # SecOpsMonitor — One-Click Installer for macOS / Linux
 # ============================================================================
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/valinorintelligence/SecOpsMonitor/main/scripts/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/your-org/SecOpsMonitor/main/scripts/install.sh | bash
 #   OR
-#   git clone https://github.com/valinorintelligence/SecOpsMonitor.git && cd SecOpsMonitor && bash scripts/install.sh
+#   git clone https://github.com/your-org/SecOpsMonitor.git && cd SecOpsMonitor && bash scripts/install.sh
 # ============================================================================
 
 set -euo pipefail
@@ -102,7 +102,7 @@ clone_repo() {
     info "SecOpsMonitor directory exists, pulling latest..."
     cd SecOpsMonitor && git pull origin main
   else
-    git clone https://github.com/valinorintelligence/SecOpsMonitor.git
+    git clone https://github.com/your-org/SecOpsMonitor.git
     cd SecOpsMonitor
   fi
   info "Repository ready"

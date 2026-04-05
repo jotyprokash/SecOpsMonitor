@@ -17,7 +17,7 @@ npm --version
 ### 2. Clone & Install (2 min)
 
 ```bash
-git clone https://github.com/valinorintelligence/SecOpsMonitor.git
+git clone https://github.com/your-org/SecOpsMonitor.git
 cd SecOpsMonitor/ui-monitor
 npm install
 ```
@@ -335,8 +335,8 @@ NODE_OPTIONS=--max-old-space-size=4096 npm run dev
 ## 🔗 Resources
 
 - **Documentation**: [FEATURES.md](./FEATURES.md), [INSTALLATION.md](./INSTALLATION.md)
-- **GitHub Issues**: [Report bugs](https://github.com/valinorintelligence/SecOpsMonitor/issues)
-- **Discussions**: [Ask questions](https://github.com/valinorintelligence/SecOpsMonitor/discussions)
+- **GitHub Issues**: [Report bugs](https://github.com/your-org/SecOpsMonitor/issues)
+- **Discussions**: [Ask questions](https://github.com/your-org/SecOpsMonitor/discussions)
 - **Live Demo**: https://secopsmonitor.vercel.app (limited features)
 
 ---

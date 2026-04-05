@@ -2,9 +2,9 @@
 # SecOpsMonitor — One-Click Installer for Windows
 # ============================================================================
 # Usage (PowerShell as Administrator):
-#   irm https://raw.githubusercontent.com/valinorintelligence/SecOpsMonitor/main/scripts/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/your-org/SecOpsMonitor/main/scripts/install.ps1 | iex
 #   OR
-#   git clone https://github.com/valinorintelligence/SecOpsMonitor.git; cd SecOpsMonitor; .\scripts\install.ps1
+#   git clone https://github.com/your-org/SecOpsMonitor.git; cd SecOpsMonitor; .\scripts\install.ps1
 # ============================================================================
 
 $ErrorActionPreference = "Stop"
@@ -97,7 +97,7 @@ function Get-Repo {
         Push-Location SecOpsMonitor
         git pull origin main
     } else {
-        git clone https://github.com/valinorintelligence/SecOpsMonitor.git
+        git clone https://github.com/your-org/SecOpsMonitor.git
         Push-Location SecOpsMonitor
     }
     Write-Ok "Repository ready"
