@@ -73,59 +73,13 @@ Unlike tools that are just dashboards on top of mock data, SecOpsMonitor has a *
 
 ---
 
-## Screenshots
 
-### Login & Dashboard
-| Login | Command Center |
-|---|---|
-| ![Login](docs/screenshots/00-login.png) | ![Command Center](docs/screenshots/01-command-center.png) |
+## Performance & Scalability
 
-### Capture & Ingestion
-| PCAP Analysis | Live Capture | External Tool Import |
-|---|---|---|
-| ![PCAP](docs/screenshots/02-pcap-analysis.png) | ![Live Capture](docs/screenshots/03-live-capture.png) | ![Integrations](docs/screenshots/04-external-tools.png) |
-
-### Network Discovery
-| Topology | Device Inventory | Protocol Analyzer |
-|---|---|---|
-| ![Topology](docs/screenshots/05-network-topology.png) | ![Devices](docs/screenshots/06-device-inventory.png) | ![Protocols](docs/screenshots/07-protocol-analyzer.png) |
-
-| Purdue Model | Signature Editor |
-|---|---|
-| ![Purdue](docs/screenshots/08-purdue-model.png) | ![Signatures](docs/screenshots/09-signature-editor.png) |
-
-### Vulnerability Intelligence (NEW)
-| ICS/OT Vuln Feed | My Environment |
-|---|---|
-| ![Vuln Feed](docs/screenshots/25-vuln-feed.png) | ![My Environment](docs/screenshots/26-my-environment.png) |
-
-### Security & Detection
-| MITRE ATT&CK for ICS | Vulnerability / CVE Matching |
-|---|---|
-| ![MITRE](docs/screenshots/10-mitre-attack.png) | ![CVE](docs/screenshots/11-vulnerability-management.png) |
-
-| C2 / Beacon Detection | Purdue Violations | Write/Program Paths |
-|---|---|---|
-| ![C2](docs/screenshots/12-c2-beacon-detection.png) | ![Violations](docs/screenshots/13-purdue-violations.png) | ![Write Paths](docs/screenshots/14-write-program-paths.png) |
-
-| Baseline Drift | Compliance (IEC/NIST/NERC) |
-|---|---|
-| ![Drift](docs/screenshots/15-baseline-drift.png) | ![Compliance](docs/screenshots/16-compliance.png) |
-
-### Analytics & Metrics
-| OT Metrics & Analytics | Security Scorecard | Timeline |
-|---|---|---|
-| ![Metrics](docs/screenshots/18-metrics.png) | ![Scorecard](docs/screenshots/17-security-scorecard.png) | ![Timeline](docs/screenshots/28-timeline.png) |
-
-### Investigations
-| Focus Queue | Report Diffing |
-|---|---|
-| ![Investigations](docs/screenshots/20-investigations.png) | ![Report Diff](docs/screenshots/21-report-diff.png) |
-
-### Reporting & Administration
-| Assessment Reports | SBOM | System Admin |
-|---|---|---|
-| ![Reports](docs/screenshots/22-assessment-reports.png) | ![SBOM](docs/screenshots/27-sbom.png) | ![Admin](docs/screenshots/24-system-admin.png) |
+SecOpsMonitor is designed for high-throughput OT environments:
+- **Asynchronous Ingestion**: FastAPI + Celery handles large PCAP files without blocking the UI.
+- **Resource Efficient**: Optimized Scapy parsers and SQLAlchemy indexing for fast metadata retrieval.
+- **Stateless Architecture**: Scalable across multiple containers with Redis for task queueing and caching.
 
 ---
 
